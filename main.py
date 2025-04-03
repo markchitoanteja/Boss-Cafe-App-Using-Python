@@ -17,7 +17,7 @@ Window.size = (360, 640)  # Typical mobile phone screen size in pixels (360x640)
 
 # SQLite database setup
 def create_db():
-    conn = sqlite3.connect('user_data.db')
+    conn = sqlite3.connect('assets/database/user_data.db')
     cursor = conn.cursor()
     
     cursor.execute('''CREATE TABLE IF NOT EXISTS users (
@@ -38,7 +38,7 @@ class IntroScreen(Screen):
         super().__init__(**kwargs)
         layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
 
-        logo = Image(source='logo.png', size_hint=(None, None), size=(150, 150), pos_hint={'center_x': 0.5})
+        logo = Image(source='assets/img/logo.png', size_hint=(None, None), size=(150, 150), pos_hint={'center_x': 0.5})
         layout.add_widget(logo)
 
         layout.add_widget(MDLabel(text="Welcome to Boss Cafe", halign="center", theme_text_color="Primary", font_style="H5"))
@@ -60,7 +60,7 @@ class LoginScreen(Screen):
         super().__init__(**kwargs)
         layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
-        logo = Image(source='logo.png', size_hint=(None, None), size=(100, 100), pos_hint={'center_x': 0.5})
+        logo = Image(source='assets/img/logo.png', size_hint=(None, None), size=(100, 100), pos_hint={'center_x': 0.5})
         layout.add_widget(logo)
 
         card = MDCard(size_hint=(None, None), size=(300, 300), pos_hint={'center_x': 0.5})
@@ -97,7 +97,7 @@ class SignupScreen(Screen):
         super().__init__(**kwargs)
         layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
-        logo = Image(source='logo.png', size_hint=(None, None), size=(100, 100), pos_hint={'center_x': 0.5})
+        logo = Image(source='assets/img/logo.png', size_hint=(None, None), size=(100, 100), pos_hint={'center_x': 0.5})
         layout.add_widget(logo)
 
         card = MDCard(size_hint=(None, None), size=(300, 350), pos_hint={'center_x': 0.5})
