@@ -1,0 +1,199 @@
+<IntroScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        MDIconButton:
+            icon: "information-outline"
+            pos_hint: {"center_x": 0.9, "top": 1}
+            on_release: root.show_info(self)
+
+        AnchorLayout:
+            size_hint: (1, None)
+            height: "150dp"
+            Image:
+                source: "assets/img/logo.png"
+                size_hint: None, None
+                size: 250, 250
+
+        AnchorLayout:
+            size_hint: (1, None)
+            height: "100dp"
+            MDLabel:
+                text: "Welcome to Boss Cafe App"
+                halign: "center"
+                font_style: "H4"
+                size_hint_y: None
+                height: "50dp"
+
+        AnchorLayout:
+            size_hint: (1, None)
+            height: "300dp"
+            MDRaisedButton:
+                text: "Get Started"
+                size_hint: None, None
+                size: 250, 60
+                pos_hint: {"center_x": 0.5}
+                elevation: 10
+                on_release: root.go_to_login(self)
+
+        AnchorLayout:
+            size_hint: (1, None)
+            height: "40dp"
+            MDLabel:
+                text: "© 2025 Boss Cafe App. All Rights Reserved."
+                halign: "center"
+
+<SignUpScreen>:
+    AnchorLayout:
+        anchor_y: "center"
+        padding: 20, 50
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 20
+            size_hint: 0.9, None
+            height: "550dp"
+
+            AnchorLayout:
+                size_hint: 1, None
+                height: "120dp"
+                Image:
+                    source: "assets/img/logo.png"
+                    size_hint: None, None
+                    size: 200, 200
+
+            MDLabel:
+                text: "Create an Account"
+                font_style: "H5"
+                halign: "center"
+                size_hint_y: None
+                height: "40dp"
+
+            MDTextField:
+                id: name_field
+                hint_text: "Full Name"
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDTextField:
+                id: username_field
+                hint_text: "Username"
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDTextField:
+                id: password_field
+                hint_text: "Password"
+                password: True
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDTextField:
+                id: confirm_password_field
+                hint_text: "Confirm Password"
+                password: True
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDRaisedButton:
+                text: "Sign Up"
+                height: "50dp"
+                size_hint_y: None
+                size_hint: (1, None)
+                on_release: root.sign_up(self)
+
+            MDRaisedButton:
+                text: "Back to Login"
+                height: "50dp"
+                size_hint_y: None
+                size_hint: (1, None)
+                md_bg_color: 0.2, 0.8, 0.2, 1
+                on_release: root.go_to_login(self)
+
+<LoginScreen>:
+    AnchorLayout:
+        anchor_y: "center"
+        padding: 20, 50
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 20
+            size_hint: 1, None
+            height: "500dp"
+
+            AnchorLayout:
+                size_hint: 1, None
+                height: "120dp"
+                Image:
+                    source: "assets/img/logo.png"
+                    size_hint: None, None
+                    size: 200, 200
+
+            MDLabel:
+                text: "Login your Account"
+                font_style: "H5"
+                halign: "center"
+                size_hint_y: None
+                height: "40dp"
+
+            MDTextField:
+                id: username_field
+                hint_text: "Username"
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDTextField:
+                id: password_field
+                hint_text: "Password"
+                password: True
+                mode: "rectangle"
+                height: "50dp"
+                size_hint_y: None
+
+            MDRaisedButton:
+                text: "Login"
+                height: "50dp"
+                size_hint_y: None
+                size_hint: (1, None)
+                on_release: root.login()
+
+            MDRaisedButton:
+                text: "Don't have an account? Sign Up"
+                height: "50dp"
+                size_hint_y: None
+                size_hint: (1, None)
+                md_bg_color: 0.2, 0.8, 0.2, 1
+                on_release: root.go_to_signup(self)
+
+<UserListScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+
+        AnchorLayout:
+            size_hint: 1, None
+            height: "150dp"
+            Image:
+                source: "assets/img/logo.png"
+                size_hint: None, None
+                size: 250, 250
+
+        MDLabel:
+            id: welcome_label
+            text: ""
+            halign: "center"
+            size_hint_y: None
+            height: "100dp"
+
+        MDRaisedButton:
+            text: "Logout"
+            height: "50dp"
+            size_hint_y: None
+            size_hint: (1, None)
+            on_release: root.logout(self)
