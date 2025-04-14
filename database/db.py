@@ -1,43 +1,87 @@
-import sqlite3
+import mysql.connector
 import hashlib
+from datetime import datetime
 
-DB_PATH = 'data/user_data.db'
+# Database configuration
+DB_CONFIG = {
+    'host': '192.168.1.141',
+    'user': 'user_bsit3b',
+    'password': 'admin123',
+    'database': 'bsit3b'
+}
 
-def create_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        full_name TEXT,
-                        username TEXT UNIQUE,
-                        password TEXT)''')
-    conn.commit()
-    conn.close()
-
+# Hash password with SHA-256
 def hash_password(password):
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-def insert_user(full_name, username, password):
-    conn = sqlite3.connect(DB_PATH)
+# Insert a new user
+def insert_user(fullname, email, username, password):
+    conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO users (full_name, username, password) VALUES (?, ?, ?)",
-                   (full_name, username, password))
-    conn.commit()
-    conn.close()
+    try:
+        cursor.execute("""
+            INSERT INTO useraccount (fullname, email, username, password)
+            VALUES (%s, %s, %s, %s)
+        """, (fullname, email, username, password))
+        conn.commit()
+    except mysql.connector.IntegrityError as e:
+        print("Error inserting user:", e)
+    finally:
+        cursor.close()
+        conn.close()
 
+# Check if a user exists
 def check_user_exists(username):
-    conn = sqlite3.connect(DB_PATH)
+    conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
+    cursor.execute("SELECT * FROM useraccount WHERE username = %s", (username,))
     user = cursor.fetchone()
+    cursor.close()
     conn.close()
     return user
 
+# Validate login and log attempt
 def validate_login(username, password):
-    conn = sqlite3.connect(DB_PATH)
+    conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", 
-                   (username, hash_password(password)))
+
+    hashed_pw = hash_password(password)
+    cursor.execute("""
+        SELECT * FROM useraccount
+        WHERE username = %s AND password = %s
+    """, (username, hashed_pw))
     user = cursor.fetchone()
+
+    status = "Success" if user else "Failed"
+
+    # Try to get the user ID regardless of success
+    userid = None
+    if user:
+        userid = user[0]  # id is the first field
+    else:
+        cursor.execute("SELECT id FROM useraccount WHERE username = %s", (username,))
+        result = cursor.fetchone()
+        if result:
+            userid = result[0]
+
+    if userid:
+        cursor.execute("""
+            INSERT INTO logs (userid, datetime, status)
+            VALUES (%s, %s, %s)
+        """, (userid, datetime.now(), status))
+        conn.commit()
+
+    cursor.close()
     conn.close()
     return user
+
+def insert_logout_log(user_id):
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO logs (userid, datetime, status)
+        VALUES (%s, %s, %s)
+    """, (user_id, datetime.now(), "Logout"))
+    conn.commit()
+    cursor.close()
+    conn.close()
