@@ -1,81 +1,63 @@
-# Boss-Cafe-App-Using-Python
+# Boss Cafe App Using Python
 
-Boss Cafe App is a simple mobile application built using Python, Kivy, and KivyMD. It provides a login and signup system, allowing users to register and authenticate into the app. This project is designed to help manage user data for a fictional cafe business.
+This is a Python-based mobile application for a fictional cafe business. It is built using [Kivy](https://kivy.org/#home) and [KivyMD](https://kivymd.readthedocs.io/en/latest/) for the front-end, and uses **MySQL** for the backend database.
 
 ## Features
 
-- **User Authentication**: Users can sign up, log in, and securely access their accounts.
-- **SQLite Database**: Stores user information securely in a local SQLite database.
-- **Modern UI**: Utilizes KivyMD to create a beautiful and responsive mobile interface with a smooth user experience.
-- **Dark Mode Support**: The app is set to use dark mode by default.
+- User authentication (Sign up / Login)
+- Responsive, modern UI using KivyMD
+- Dark mode support
+- Persistent data storage using MySQL
 
 ## Requirements
 
-Before running the app, ensure you have the following installed:
+Make sure you have the following installed:
 
-- Python 3.x
-- Kivy (2.0.0 or later)
-- KivyMD (latest version)
-- SQLite3 (comes pre-installed with Python)
+- Python 3.7+
+- MySQL Server
+- pip
 
-To install the necessary libraries, run:
+Install Python dependencies:
 
 ```bash
-pip install kivy kivymd
+pip install -r requirements.txt
 ```
 
-## Installation
+## Database Configuration
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/boss-cafe-app.git
-    cd boss-cafe-app
-    ```
-
-2. Install the required dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. Run the application:
-    ```bash
-    python main.py
-    ```
-
-## Usage
-
-- Launch the app and create a new account using the signup feature.
-- Log in with your credentials to access the app's features.
-- The app will store your data securely in the SQLite database.
-
-## Project Structure
+This app uses a **MySQL** database. You need to configure your connection in the file:
 
 ```
-boss-cafe-app/
-│
-├── main.py               # Entry point of the application
-├── database/
-│   ├── user_data.db      # SQLite database file
-│   └── db_helper.py      # Database helper functions
-├── screens/
-│   ├── login_screen.py   # Login screen logic
-│   ├── signup_screen.py  # Signup screen logic
-│   └── home_screen.py    # Home screen logic
-├── assets/
-│   ├── images/           # Image assets
-│   └── styles/           # Custom styles
-└── README.md             # Project documentation
+database/db.py
 ```
 
-## Contributing
+Inside that file, you'll find the following `db_config` dictionary:
 
-Contributions are welcome! If you'd like to contribute, please fork the repository and submit a pull request.
+```python
+db_config = {
+    "host": "192.168.x.x",   # Replace with your teacher’s local IP address
+    "user": "your_username", # Replace with the MySQL username
+    "password": "your_password", # Replace with the MySQL password
+    "database": "bsit3b"  # Ensure the database exists
+}
+```
 
-## License
+> ⚠️ **Important:** You must be connected to your teacher's WiFi network to connect to the MySQL server successfully.
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+### Database Setup
 
-## Acknowledgments
+Ask your teacher for access credentials and ensure the `boss_cafe` database and required tables are already set up. If not, use the provided SQL schema (if available) or ask your instructor.
 
-- [Kivy](https://kivy.org/) - For the amazing Python framework.
-- [KivyMD](https://kivymd.readthedocs.io/) - For the Material Design components.
+## Running the Application
+
+After editing the database configuration:
+
+```bash
+python main.py
+```
+
+The app will launch with a login/signup screen.
+
+## Screenshots
+
+_Add your screenshots here (optional)._
