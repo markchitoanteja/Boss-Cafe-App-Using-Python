@@ -34,7 +34,7 @@ database/db.py
 Inside that file, you'll find the following `db_config` dictionary:
 
 ```python
-db_config = {
+DB_CONFIG = {
     "host": "192.168.x.x",   # Replace with your teacher’s local IP address
     "user": "your_username", # Replace with the MySQL username
     "password": "your_password", # Replace with the MySQL password
