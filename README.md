@@ -57,7 +57,3 @@ python main.py
 ```
 
 The app will launch with a login/signup screen.
-
-## Screenshots
-
-_Add your screenshots here (optional)._
